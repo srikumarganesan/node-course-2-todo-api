@@ -11,6 +11,7 @@ const _ = require(`lodash`);
 const {mongoose} = require(`./db/mongoose`);
 const {Todo} = require(`./models/todo`);
 const {User} = require(`./models/user`);
+const {authenticate} = require(`./middleware/authenticate`);
 
 let app = express();
 const port = process.env.PORT;
@@ -90,6 +91,8 @@ app.patch(`/todos/:id`, (req, res) => {
         res.send({todo});
     }).catch((e) => res.status(400).send());
 });
+
+app.get('/users/me', authenticate, (req, res) => res.send(req.user));
 
 //POST /users
 app.post(`/users`, (req, res) => {

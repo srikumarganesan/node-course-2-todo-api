@@ -3,7 +3,7 @@
  */
 const mongoose = require(`mongoose`);
 const validator = require(`validator`);
-const jwt = require(`jsonwebtoken`)
+const jwt = require(`jsonwebtoken`);
 const _ = require(`lodash`);
 const bcrypt = require(`bcryptjs`);
 
@@ -80,7 +80,7 @@ UserSchema.statics.findByCredentials = function(email, password) {
             });
         })
     })
-}
+};
 
 //Mongoose middleware
 UserSchema.pre(`save`, function(next) {

@@ -63,6 +63,25 @@ UserSchema.statics.findByToken = function(token) {
     });
 };
 
+UserSchema.statics.findByCredentials = function(email, password) {
+    let user = this;
+
+    return User.findOne({email}).then((user) => {
+        if (!user) {
+            return Promise.reject();
+        }
+        return new Promise((resolve, reject) => {
+            bcrypt.compare(password, user.password, (err, result) => {
+               if (result) {
+                   resolve(user);
+               } else {
+                   reject();
+               }
+            });
+        })
+    })
+}
+
 //Mongoose middleware
 UserSchema.pre(`save`, function(next) {
     let user = this;
